@@ -25,5 +25,6 @@ module.exports = {
     "no-empty-pattern": "off",
     curly: "off",
     "no-unreachable": "off",
+    parser: "babel-eslint",
   },
 };
