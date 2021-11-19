@@ -11,8 +11,6 @@ const signupController = async (req, res) => {
   } catch (err) {}
 };
 
-const userController = {
+module.exports = {
   signupController,
 };
-
-export default userController;

@@ -7,8 +7,6 @@
 
 const getPostAll = async (data) => {};
 
-const postService = {
+module.exports = {
   getPostAll,
 };
-
-export default postService;

@@ -9,8 +9,6 @@ const postAllController = async (req, res) => {
   } catch (err) {}
 };
 
-const postController = {
+module.exports = {
   postAllController,
 };
-
-export default postController;

@@ -11,8 +11,6 @@ import jwt from "jsonwebtoken";
 
 const postSignup = async (data) => {};
 
-const userService = {
+module.exports = {
   postSignup,
 };
-
-export default userService;
