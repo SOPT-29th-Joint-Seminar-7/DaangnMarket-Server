@@ -1,6 +1,3 @@
-const util = require("../lib/util");
-const statusCode = require("../constants/statusCode");
-const responseMessage = require("../constants/responseMessage");
 const functions = require("firebase-functions");
 const db = require("../db/db");
 const { postDB } = require("../db");
