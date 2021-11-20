@@ -14,8 +14,6 @@ const postAllController = async (req, res) => {
     // 디비 조회
     const data = await postService.getPostAll();
 
-    console.log(data);
-
     // 디비 에러
     if (data === -1) {
       return res
