@@ -11,7 +11,7 @@ const postService = require("../service/postService ");
 
 const postAllController = async (req, res) => {
   try {
-    // 조회 성공
+    // 디비 조회
     const data = await postService.getPostAll();
 
     console.log(data);
@@ -22,7 +22,7 @@ const postAllController = async (req, res) => {
         .status(statusCode.DB_ERROR)
         .send(util.fail(statusCode.DB_ERROR, "DB 에러"));
     }
-    // response
+    // 조회 성공
     res
       .status(statusCode.OK)
       .send(util.success(statusCode.OK, "포스트 전체 조회 성공", data));
