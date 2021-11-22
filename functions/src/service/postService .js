@@ -41,7 +41,7 @@ const getPostAll = async (req) => {
 
 const getSearchPost = async (req) => {
   const { keyword } = req.query;
-  // const { title, content } = req.body;
+
   let client;
 
   try {
@@ -49,8 +49,9 @@ const getSearchPost = async (req) => {
 
     const searchedPosts = await postDB.searchedPosts(client, keyword);
 
-    // 검색 결과 없을 때
-    // if ( searchedPosts.keyword.length === 0 ) return false;
+    // 검색 결과가 없거나 공백 입력 시
+    if ( searchedPosts.length === 0 ) return false;
+    
 
     return searchedPosts;
   } catch (error) {
