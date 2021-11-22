@@ -15,12 +15,14 @@ const searchedPosts = async (client, keyword) => {
   const { rows } = await client.query(
     `
     SELECT * FROM post p
-    WHERE title LIKE '%$1%'
-      OR content LIKE '%$1%'
+    WHERE title LIKE '%${keyword}%'
+      OR content LIKE '%${keyword}%'
       AND is_deleted = FALSE
-    `,
-    [keyword]
+    `
   );
+
+  // 공백 입력 시
+  if (keyword === "") return [];
 
   return convertSnakeToCamel.keysToCamel(rows);
 };
