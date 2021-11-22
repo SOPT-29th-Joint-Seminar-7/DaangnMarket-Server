@@ -32,6 +32,39 @@ const getPostAll = async (req) => {
   }
 };
 
+/**
+ *  @포스트 검색
+ *  @route GET /post/search?keyword=
+ *  @access public
+ *  @error
+ */
+
+const getSearchPost = async (req) => {
+  const { keyword } = req.query;
+  // const { title, content } = req.body;
+  let client;
+
+  try {
+    client = await db.connect(req);
+
+    const searchedPosts = await postDB.searchedPosts(client, keyword);
+
+    // 검색 결과 없을 때
+    // if ( searchedPosts.keyword.length === 0 ) return false;
+
+    return searchedPosts;
+  } catch (error) {
+    functions.logger.error(
+      `[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`,
+      `[CONTENT] ${error}`
+    );
+    return -1;
+  } finally {
+    client.release();
+  }
+};
+
+
 module.exports = {
-  getPostAll,
+  getPostAll, getSearchPost,
 };
