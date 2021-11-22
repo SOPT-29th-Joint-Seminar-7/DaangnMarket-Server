@@ -11,4 +11,18 @@ const getAllPosts = async (client) => {
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = { getAllPosts };
+const searchedPosts = async (client, keyword) => {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM post p
+    WHERE title LIKE '%$1%'
+      OR content LIKE '%$1%'
+      AND is_deleted = FALSE
+    `,
+    [keyword]
+  );
+
+  return convertSnakeToCamel.keysToCamel(rows);
+};
+
+module.exports = { getAllPosts, searchedPosts, };
