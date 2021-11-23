@@ -9,9 +9,6 @@ const jwtHandlers = require("../lib/jwtHandlers");
  *  @회원가입
  *  @route Post /user/signup
  *  @access public
- *  @error
- *      1. 요청 바디 부족
- *      2. 아이디 중복
  */
 
 const postSignup = async (req) => {
@@ -20,18 +17,18 @@ const postSignup = async (req) => {
   let client;
 
   try {
-    client = await db.connect(req);
+    client = await db.connect();
 
-    // console.log(email, password);
-    // // 요청 바디 부족
-    // if (!email || !password) {
-    //   return -2;
-    // }
-    // // 이메일 형식 오류
-    // const emailValidator = validator.emailValidator(email);
-    // if (!emailValidator) {
-    //   return -3;
-    // }
+    console.log(email, password);
+    // 요청 바디 부족
+    if (!email || !password) {
+      return -2;
+    }
+    // 이메일 형식 오류
+    const emailValidator = validator.emailValidator(email);
+    if (!emailValidator) {
+      return -3;
+    }
 
     const userFirebase = await admin
       .auth()
@@ -41,8 +38,6 @@ const postSignup = async (req) => {
         console.log(e);
         return { err: true, error: e };
       });
-
-    // console.log(userFirebase);
 
     if (userFirebase.err) {
       // 이미 존재하는 사용자
@@ -57,7 +52,7 @@ const postSignup = async (req) => {
         throw new Error("firebase 오류");
       }
     }
-    console.log("ddd");
+
     const idFirebase = userFirebase.uid;
 
     // 성공시 Token

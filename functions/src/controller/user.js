@@ -11,9 +11,7 @@ const userService = require("../service/userService");
 
 const signupController = async (req, res) => {
   try {
-    console.log("컨트롤러 인");
     const tokenData = await userService.postSignup(req);
-    console.log(tokenData);
 
     // 파이어 베이스 오류
     if (tokenData === -1) {
@@ -32,22 +30,24 @@ const signupController = async (req, res) => {
     // 이메일 형식 오류
     else if (tokenData === -3) {
       return res
-        .status(statusCode.NOT_FOUND)
-        .json(util.fail(statusCode.NOT_FOUND, "이메일 형식이 잘못되었습니다."));
+        .status(statusCode.BAD_REQUEST)
+        .json(
+          util.fail(statusCode.BAD_REQUEST, "이메일 형식이 잘못되었습니다.")
+        );
     }
     // 이미 존재하는 아이디
     else if (tokenData === -4) {
       return res
-        .status(statusCode.NOT_FOUND)
-        .json(util.fail(statusCode.NOT_FOUND, responseMessage.ALREADY_EMAIL));
+        .status(statusCode.BAD_REQUEST)
+        .json(util.fail(statusCode.BAD_REQUEST, responseMessage.ALREADY_EMAIL));
     }
 
     // 비밀번호 형식 오류
     else if (tokenData === -5) {
       return res
-        .status(statusCode.DB_ERROR)
+        .status(statusCode.BAD_REQUEST)
         .send(
-          util.fail(statusCode.DB_ERROR, "비밀번호 형식이 잘못되었습니다.")
+          util.fail(statusCode.BAD_REQUEST, "비밀번호 형식이 잘못되었습니다.")
         );
     }
     // 회원가입 성공
