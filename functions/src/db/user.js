@@ -4,7 +4,7 @@ const convertSnakeToCamel = require("../lib/convertSnakeToCamel");
 const getUserById = async (client, userId) => {
   const { rows } = await client.query(
     `
-      SELECT * FROM "user" u
+      SELECT * FROM "user"
       WHERE id = $1
         AND is_deleted = FALSE
       `,
@@ -18,7 +18,7 @@ const getUserById = async (client, userId) => {
 const addUser = async (client, email, idFirebase, address) => {
   const { rows } = await client.query(
     `
-      INSERT INTO "user" u
+      INSERT INTO "user"
       (email, id_firebase, address)
       VALUES
       ($1, $2, $3)
