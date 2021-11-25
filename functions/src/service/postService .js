@@ -2,7 +2,6 @@ const functions = require("firebase-functions");
 const db = require("../db/db");
 const postDB = require("../db/post");
 const userDB = require("../db/user");
-const img = require("../sampleDB/img");
 const imgs = require("../sampleDB/img");
 
 /**
@@ -34,6 +33,40 @@ const getPostAll = async (req) => {
     client.release();
   }
 };
+
+/**
+ *  @포스트 검색
+ *  @route GET /post/search?keyword=
+ *  @access public
+ *  @error
+ */
+
+const getSearchPost = async (req) => {
+  const { keyword } = req.query;
+
+  let client;
+
+  try {
+    client = await db.connect(req);
+
+    const searchedPosts = await postDB.searchedPosts(client, keyword);
+
+    // 검색 결과가 없거나 공백 입력 시
+    if ( searchedPosts.length === 0 ) return false;
+    
+
+    return searchedPosts;
+  } catch (error) {
+    functions.logger.error(
+      `[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`,
+      `[CONTENT] ${error}`
+    );
+    return -1;
+  } finally {
+    client.release();
+  }
+};
+
 
 /**
  *  @포스트 등록
@@ -94,6 +127,5 @@ const postPostUpload = async (req) => {
 };
 
 module.exports = {
-  getPostAll,
-  postPostUpload,
+  getPostAll, getSearchPost, postPostUpload,
 };
