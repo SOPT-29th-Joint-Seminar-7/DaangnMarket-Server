@@ -15,4 +15,13 @@ module.exports = {
 
   // 프로필 조회
   READ_PROFILE_SUCCESS: "프로필 조회 성공",
+
+  // 포스트
+  READ_ALL_POSTS_SUCCESS: '모든 포스트 조회 성공',
+  ADD_ONE_POST_SUCCESS: '포스트 추가 성공',
+  SEARCH_POST_SUCCESS: '포스트 검색 성공',
+  NO_SEARCH_POST: '포스트 검색 결과 없음',
+
+  // 서버 내 오류
+  INTERNAL_SERVER_ERROR: '서버 내 오류',
 };
