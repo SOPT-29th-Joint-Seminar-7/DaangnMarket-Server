@@ -1,18 +1,5 @@
-const _ = require('lodash');
-const convertSnakeToCamel = require('../lib/convertSnakeToCamel');
-
-const getUserByIdFirebase = async (client, idFirebase) => {
-    const { rows } = await client.query(
-        `
-        SELECT * FROM "user" u
-        WHERE id_firebase = $1
-            AND is_deleted = FALSE
-        `, 
-        [idFirebase]
-    );
-    return convertSnakeToCamel.keysToCamel(rows[0]);
-};
-
+const _ = require("lodash");
+const convertSnakeToCamel = require("../lib/convertSnakeToCamel");
 
 const getUserById = async (client, userId) => {
   const { rows } = await client.query(
@@ -43,8 +30,33 @@ const addUser = async (client, email, idFirebase, address) => {
   return convertSnakeToCamel.keysToCamel(rows[0]);
 };
 
+const getAllUsers = async (client) => {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM "user"
+    WHERE is_deleted = FALSE
+    `
+  );
+
+  return convertSnakeToCamel.keysToCamel(rows);
+};
+
+const getUserByIdFirebase = async (client, idFirebase) => {
+    const { rows } = await client.query(
+        `
+        SELECT * FROM "user" u
+        WHERE id_firebase = $1
+            AND is_deleted = FALSE
+        `, 
+        [idFirebase]
+    );
+    return convertSnakeToCamel.keysToCamel(rows[0]);
+};
+
+
 module.exports = {
   getUserById,
   addUser,
+  getAllUsers,
   getUserByIdFirebase,
 };
