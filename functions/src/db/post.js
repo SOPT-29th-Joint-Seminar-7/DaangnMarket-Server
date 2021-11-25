@@ -6,6 +6,7 @@ const getAllPosts = async (client) => {
     `
       SELECT * FROM post p
       WHERE is_deleted = FALSE
+      ORDER BY id
       `
   );
   return convertSnakeToCamel.keysToCamel(rows);
@@ -36,7 +37,6 @@ const postPostUpload = async (client, postInfo, userID) => {
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-
 const searchedPosts = async (client, keyword) => {
   const { rows } = await client.query(
     `
@@ -44,6 +44,7 @@ const searchedPosts = async (client, keyword) => {
     WHERE title LIKE '%${keyword}%'
       OR content LIKE '%${keyword}%'
       AND is_deleted = FALSE
+      ORDER BY id
     `
   );
 

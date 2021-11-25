@@ -14,8 +14,6 @@ const postAllController = async (req, res) => {
     // 조회 성공
     const data = await postService.getPostAll();
 
-    console.log(data);
-
     // 디비 에러
     if (data === -1) {
       return res
@@ -38,7 +36,7 @@ const postAllController = async (req, res) => {
   }
 };
 const postSearchController = async (req, res) => {
-  try{
+  try {
     // 검색 성공
     const data = await postService.getSearchPost(req);
 
@@ -48,27 +46,19 @@ const postSearchController = async (req, res) => {
         .status(statusCode.DB_ERROR)
         .send(util.fail(statusCode.DB_ERROR, "DB 에러"));
     }
-    
+
     // 검색 내용 없음
-    if (data === false) 
+    if (data === false)
       return res
         .status(statusCode.OK)
-        .send(
-          util.fail(
-            statusCode.OK, 
-            responseMessage.NO_SEARCH_POST
-          )
-        );
+        .send(util.fail(statusCode.OK, responseMessage.NO_SEARCH_POST));
 
-    // 검색 성공 response 
+    // 검색 성공 response
     res
       .status(statusCode.OK)
       .send(
-        util.success(
-          statusCode.OK, 
-          responseMessage.SEARCH_POST_SUCCESS, 
-          data));
-
+        util.success(statusCode.OK, responseMessage.SEARCH_POST_SUCCESS, data)
+      );
   } catch (error) {
     return res
       .status(statusCode.INTERNAL_SERVER_ERROR)
