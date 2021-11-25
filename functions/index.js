@@ -1,4 +1,4 @@
-const serviveAccount = require("./daangnmarket-wesopt-firebase-adminsdk-z9ie8-04e712548c.json");
+const serviveAccount = require("./daangnmarket-wesopt-firebase-adminsdk-z9ie8-04e712548c");
 const admin = require("firebase-admin");
 const dotenv = require("dotenv");
 
