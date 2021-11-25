@@ -51,7 +51,7 @@ const postSearchController = async (req, res) => {
     if (data === false)
       return res
         .status(statusCode.OK)
-        .send(util.fail(statusCode.OK, responseMessage.NO_SEARCH_POST));
+        .send(util.success(statusCode.OK, responseMessage.NO_SEARCH_POST));
 
     // 검색 성공 response
     res
