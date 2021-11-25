@@ -47,11 +47,12 @@ const postSearchController = async (req, res) => {
         .send(util.fail(statusCode.DB_ERROR, "DB 에러"));
     }
 
+    console.log(responseMessage.NO_SEARCH_POST);
     // 검색 내용 없음
     if (data === false)
       return res
         .status(statusCode.OK)
-        .send(util.fail(statusCode.OK, responseMessage.NO_SEARCH_POST));
+        .send(util.success(statusCode.OK, responseMessage.NO_SEARCH_POST, []));
 
     // 검색 성공 response
     res
